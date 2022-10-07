@@ -6,8 +6,10 @@ public class Movement : MonoBehaviour
 {
 
     private float horizontal;
-    private float speed = 4f;
-    private float jumpingPower = 8f;
+    public float speed = 4f;
+    public float jumpingPower = 8f;
+    public float groundCheckRange = 0.1f;
+
     private bool isFacingRight = true;
 
     [SerializeField] private Rigidbody2D rb;
@@ -19,13 +21,13 @@ public class Movement : MonoBehaviour
     {
         horizontal = Input.GetAxisRaw("Horizontal");
 
-        bool isButtonDown = Input.GetButtonDown("Jump") || Input.GetKeyDown("w");
+        bool isButtonDown = Input.GetButtonDown("Jump");
         if(isButtonDown && isGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
         }
 
-        bool isButtonUp = Input.GetButtonUp("Jump") || Input.GetKeyUp("w");
+        bool isButtonUp = Input.GetButtonUp("Jump");
         if (isButtonUp && rb.velocity.y > 0f)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
@@ -34,6 +36,7 @@ public class Movement : MonoBehaviour
         flip();
     }
 
+    // Fixed update is called at intervals
     void FixedUpdate()
     {
         rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
@@ -41,7 +44,7 @@ public class Movement : MonoBehaviour
 
     private bool isGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        return Physics2D.OverlapCircle(groundCheck.position, groundCheckRange, groundLayer);
     }
 
     private void flip()
