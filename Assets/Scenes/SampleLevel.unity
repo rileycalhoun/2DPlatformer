@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 217383443}
   m_Layer: 7
   m_Name: Platform 4
-  m_TagString: Untagged
+  m_TagString: Climbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -335,7 +335,7 @@ GameObject:
   - component: {fileID: 426014503}
   m_Layer: 7
   m_Name: Platform 5
-  m_TagString: Untagged
+  m_TagString: Climbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -617,7 +617,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.24017665, y: 0.34999076}
+  m_Size: {x: 0.25, y: 0.35}
   m_EdgeRadius: 0
 --- !u!212 &528470467
 SpriteRenderer:
@@ -699,6 +699,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1fbbc2577e11de4fa0cec4f2e5effcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterCollider: {fileID: 528470466}
   speed: 4
   jumpingPower: 8
   groundCheckRange: 0.09
@@ -707,6 +708,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
+  maxSlideTime: 1.5
 --- !u!1 &732010789
 GameObject:
   m_ObjectHideFlags: 0
@@ -870,7 +872,7 @@ GameObject:
   - component: {fileID: 916658135}
   m_Layer: 7
   m_Name: Platform 7
-  m_TagString: Untagged
+  m_TagString: Climbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1065,7 +1067,7 @@ GameObject:
   - component: {fileID: 1351262182}
   m_Layer: 7
   m_Name: Platform 6
-  m_TagString: Untagged
+  m_TagString: Climbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1176,7 +1178,7 @@ GameObject:
   - component: {fileID: 1496389708}
   m_Layer: 7
   m_Name: Platform 1
-  m_TagString: Untagged
+  m_TagString: Climbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1241,7 +1243,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1496389705}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.4616797, y: 5.2684407, z: -0.031601045}
+  m_LocalPosition: {x: 3.438, y: 4.897, z: -0.031601045}
   m_LocalScale: {x: 12.4089985, y: 0.52950937, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1287,7 +1289,7 @@ GameObject:
   - component: {fileID: 1721110323}
   m_Layer: 7
   m_Name: Platform 2
-  m_TagString: Untagged
+  m_TagString: Climbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1398,7 +1400,7 @@ GameObject:
   - component: {fileID: 1757985363}
   m_Layer: 7
   m_Name: Platform 3
-  m_TagString: Untagged
+  m_TagString: Climbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
