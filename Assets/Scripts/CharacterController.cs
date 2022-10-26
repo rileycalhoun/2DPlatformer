@@ -69,27 +69,38 @@ public class CharacterController : MonoBehaviour
         }
 
         // Check if the 's' or Left Control buttons are pressed down
-        if(Input.GetButtonDown("Slide") && !isSliding) {
-            isSliding = true;
-            slideTimer = 0f;
-            // play slide animation
-            Vector2 size = characterCollider.size;
-            size.x = colliderSizeVertical;
-            size.y = colliderSizeHorizontal;
-            characterCollider.size = size;
-        }
+        if(Input.GetButtonDown("Slide") && !isSliding) startSlide();
 
         if(isSliding)
         {
+            if(Input.GetButtonUp("Slide") || horizontal == 0f) cancelSlide();
+
             slideTimer += Time.deltaTime;
-            if(slideTimer > maxSlideTime) {
-                isSliding = false;
-                Vector2 size = characterCollider.size;
-                size.x = colliderSizeHorizontal;
-                size.y = colliderSizeVertical;
-                characterCollider.size = size;
-            }
+            if(slideTimer > maxSlideTime) cancelSlide();
         }
+    }
+
+    void startSlide()
+    {
+        isSliding = true;
+        slideTimer = 0f;
+        
+        // play slide animation
+
+        // resize character collider    
+        Vector2 size = characterCollider.size;
+        size.x = colliderSizeVertical;
+        size.y = colliderSizeHorizontal;
+        characterCollider.size = size;
+    }
+
+    void cancelSlide()
+    {
+        isSliding = false;
+        Vector2 size = characterCollider.size;
+        size.x = colliderSizeHorizontal;
+        size.y = colliderSizeVertical;
+        characterCollider.size = size;
     }
 
     void updateUserVelocity()
