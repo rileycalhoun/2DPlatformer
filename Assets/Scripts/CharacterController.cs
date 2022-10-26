@@ -69,19 +69,26 @@ public class CharacterController : MonoBehaviour
         }
 
         // Check if the 's' or Left Control buttons are pressed down
-        if(Input.GetButtonDown("Slide") && isGrounded() && !isSliding) startSlide();
-        // If the user is no longer holding the slide button, cancel the slide
-        if(Input.GetButtonUp("Slide") && isSliding) cancelSlide();
+        if(Input.GetButtonDown("Slide") && !isSliding) {
+            isSliding = true;
+            slideTimer = 0f;
+            // play slide animation
+            Vector2 size = characterCollider.size;
+            size.x = colliderSizeVertical;
+            size.y = colliderSizeHorizontal;
+            characterCollider.size = size;
+        }
 
-        // If the user is sliding
         if(isSliding)
         {
-            
-            if (horizontal == 0f)
-                cancelSlide();
-
             slideTimer += Time.deltaTime;
-            if(slideTimer > maxSlideTime) cancelSlide();
+            if(slideTimer > maxSlideTime) {
+                isSliding = false;
+                Vector2 size = characterCollider.size;
+                size.x = colliderSizeHorizontal;
+                size.y = colliderSizeVertical;
+                characterCollider.size = size;
+            }
         }
     }
 
@@ -109,31 +116,6 @@ public class CharacterController : MonoBehaviour
             localScale.x *= -1f;
             transform.localScale = localScale;
         }
-    }
-
-
-    // Sliding
-    private void startSlide()
-    {
-        isSliding = true;
-        slideTimer = 0f;
-            
-        // play slide animation
-
-        // Change hitbox size to account for slide
-        Vector2 size = characterCollider.size;
-        size.x = colliderSizeVertical;
-        size.y = colliderSizeHorizontal - 0.1f;
-        characterCollider.size = size;
-    }
-
-    private void cancelSlide()
-    {
-        isSliding = false;
-        Vector2 size = characterCollider.size;
-        size.x = colliderSizeHorizontal;
-        size.y = colliderSizeVertical;
-        characterCollider.size = size;
     }
 
 }
