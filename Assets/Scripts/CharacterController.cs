@@ -8,8 +8,8 @@ public class CharacterController : MonoBehaviour
 
     // Character Collider
     [SerializeField] private BoxCollider2D characterCollider;
-    private float walkingHorizontalSize = 0.35f;
-    private float walkingVerticalSize = 0.25f;
+    private float colliderSizeHorizontal = 0.25f;
+    private float colliderSizeVertical = 0.35f;
 
     // Character Walk/Run
     private float horizontal;
@@ -69,26 +69,18 @@ public class CharacterController : MonoBehaviour
         }
 
         // Check if the 's' or Left Control buttons are pressed down
-        if(Input.GetButtonDown("Slide") && !isSliding) {
-            isSliding = true;
-            slideTimer = 0f;
-            // play slide animation
-            Vector2 size = characterCollider.size;
-            size.x = walkingVerticalSize;
-            size.y = walkingHorizontalSize;
-            characterCollider.size = size;
-        }
+        if(Input.GetButtonDown("Slide") && isGrounded() && !isSliding) startSlide();
 
+        // If the user is no longer holding the slide button, cancel the slide
+        if(Input.GetButtonUp("Slide") && isSliding) cancelSlide();
+        // If the user is sliding
         if(isSliding)
         {
+            if (horizontal == 0f)
+                cancelSlide();
+
             slideTimer += Time.deltaTime;
-            if(slideTimer > maxSlideTime) {
-                isSliding = false;
-                Vector2 size = characterCollider.size;
-                size.x = walkingHorizontalSize;
-                size.y = walkingVerticalSize;
-                characterCollider.size = size;
-            }
+            if(slideTimer > maxSlideTime) cancelSlide();
         }
     }
 
@@ -116,6 +108,31 @@ public class CharacterController : MonoBehaviour
             localScale.x *= -1f;
             transform.localScale = localScale;
         }
+    }
+
+
+    // Sliding
+    private void startSlide()
+    {
+        isSliding = true;
+        slideTimer = 0f;
+            
+        // play slide animation
+
+        // Change hitbox size to account for slide
+        Vector2 size = characterCollider.size;
+        size.x = colliderSizeVertical;
+        size.y = colliderSizeHorizontal;
+        characterCollider.size = size;
+    }
+
+    private void cancelSlide()
+    {
+        isSliding = false;
+        Vector2 size = characterCollider.size;
+        size.x = colliderSizeHorizontal;
+        size.y = colliderSizeVertical;
+        characterCollider.size = size;
     }
 
 }
