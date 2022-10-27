@@ -4,7 +4,7 @@ public class CharacterController : MonoBehaviour
 {
 
     // Animator
-    private GameObject animator;
+    [SerializeField] private Animator animator;
 
     // Character Collider
     [SerializeField] private BoxCollider2D characterCollider;
@@ -106,7 +106,10 @@ public class CharacterController : MonoBehaviour
     void updateUserVelocity()
     {
         // Make the user move in the direction they are indicating
+        if(isSliding) horizontal *= 1.5f;
         rigidBody.velocity = new Vector2(horizontal * speed, rigidBody.velocity.y);
+        if(horizontal != 0f) animator.SetBool("isRunning", true);
+        else animator.SetBool("isRunning", false);
     }
 
     // Check if the user is on the ground
